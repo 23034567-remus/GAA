@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <title>Home Page</title>
+</head>
+<body>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Remus Rentals</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/account">Account</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/feedback">Feedback</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/history">Transaction History</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <h1 class="mt-5">Dashboard</h1>
+    <div class="text-centre">
+      <h2>Welcome, <%= user.username %> (<%= user.role %>)</h2>
+    </div>
+    <% if (user.role === 'admin') { %>
+      <a href="/admin" class="btn btn-primary">Admin Dashboard</a>
+    <% } %>
+    <a href="/logout" class="btn btn-primary">Logout</a>
+  </div>
+
+  <div class="container">
+    <br>
+    <div class="text-center">
+      <h2>Items available in Remus Rentals</h2>
+    </div>
+    <br>
+    <table class="table table-hover small text-center">
+      <thead>
+        <tr>
+          <th width="100">Product Name</th>
+          <th width="100">Product Image</th>
+          <th width="200">Product Description</th>
+          <th width="50">Price</th>
+          <th width="50">Rent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let i=0; i < products.length; i++) { %>
+          <tr>
+            <td><h2><%= products[i].productName %></h2></td>
+            <td><img src="../images/<%= products[i].image %>" width="50%"></td>
+            <td><h4><%= products[i].productDesc %></h4></td>
+            <td>$SGD<%= products[i].price.toFixed(2) %></td>
+            <td><h2><a href="/rent/<%= products[i].productId %>">Rent Now</a></td></h2>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
